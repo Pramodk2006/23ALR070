@@ -36,3 +36,26 @@ const createLogger = (stack) => {
 };
 
 module.exports = createLogger;
+
+const axios = require("axios")
+require("dotenv").config()
+
+const createLogger = (stack) => {
+  return async (Level,pkg,message) => {
+    try {
+      const response =await axios.post("http://loccalhost:3000/logs", {Level,pkg,message,stack}, {
+        headers:{
+          Authorization: `Bearer ${process.env.YOUR_TOKEN}`,
+          "Content-Type": "application/json"}
+        } );
+      }
+   
+      catch(error) {
+        console.log(error);
+        
+        
+    }
+    }
+  };
+
+module.exports=createLogger;
